@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ae4749a2d06e7bc78d0e896f2f92410a",
+    "entities": [
+      {
+        "tableName": "DatabaseAsteroid",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `codename` TEXT NOT NULL, `closeApproachDate` TEXT NOT NULL, `absoluteMagnitude` REAL NOT NULL, `estimatedDiameter` REAL NOT NULL, `relativeVelocity` REAL NOT NULL, `distanceFromEarth` REAL NOT NULL, `isPotentiallyHazardous` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codename",
+            "columnName": "codename",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "closeApproachDate",
+            "columnName": "closeApproachDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "absoluteMagnitude",
+            "columnName": "absoluteMagnitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estimatedDiameter",
+            "columnName": "estimatedDiameter",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relativeVelocity",
+            "columnName": "relativeVelocity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceFromEarth",
+            "columnName": "distanceFromEarth",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPotentiallyHazardous",
+            "columnName": "isPotentiallyHazardous",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DatabasePictureOfDay",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `mediaType` TEXT NOT NULL, `title` TEXT NOT NULL, PRIMARY KEY(`url`))",
+        "fields": [
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mediaType",
+            "columnName": "mediaType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "url"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae4749a2d06e7bc78d0e896f2f92410a')"
+    ]
+  }
+}

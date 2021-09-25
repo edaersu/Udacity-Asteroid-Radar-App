@@ -2,15 +2,16 @@ package com.udacity.asteroidradar.api
 
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.data.DatabaseAsteroid
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<Asteroid> {
+fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<DatabaseAsteroid> {
     val nearEarthObjectsJson = jsonResult.getJSONObject("near_earth_objects")
 
-    val asteroidList = ArrayList<Asteroid>()
+    val asteroidList = ArrayList<DatabaseAsteroid>()
 
     val nextSevenDaysFormattedDates = getNextSevenDaysFormattedDates()
     for (formattedDate in nextSevenDaysFormattedDates) {
@@ -33,7 +34,7 @@ fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<Asteroid> {
             val isPotentiallyHazardous = asteroidJson
                 .getBoolean("is_potentially_hazardous_asteroid")
 
-            val asteroid = Asteroid(id, codename, formattedDate, absoluteMagnitude,
+            val asteroid = DatabaseAsteroid(id, codename, formattedDate, absoluteMagnitude,
                 estimatedDiameter, relativeVelocity, distanceFromEarth, isPotentiallyHazardous)
             asteroidList.add(asteroid)
         }
@@ -54,4 +55,39 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     }
 
     return formattedDateList
+}
+
+//get start date (today)
+fun getToday(): String {
+    val calendar = Calendar.getInstance()
+    val currentTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    return dateFormat.format(currentTime)
+}
+
+//get yesterday's date
+fun getYesterday(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -1)
+    val currentTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    return dateFormat.format(currentTime)
+}
+
+//get yesterday's date
+fun getPastDate(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -7)
+    val currentTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    return dateFormat.format(currentTime)
+}
+
+//get end date (7 days ahead)
+fun getEndDay(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, 7)
+    val currentTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    return dateFormat.format(currentTime)
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="asteroid"
+            type="com.udacity.asteroidradar.Asteroid" />
+
+        <variable
+            name="asteroidClick"
+            type="com.udacity.asteroidradar.main.AsteroidClick" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="@dimen/spacing_normal"
+            android:orientation="vertical" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+        <TextView
+            android:id="@+id/asteroid_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/start_grid"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/default_text_color"
+            app:asteroidNameText="@{asteroid}"
+            tools:text="@string/asteroid_name"/>
+        <TextView
+            android:id="@+id/asteroid_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            tools:text="@string/dummy_asteroid_date"
+            android:textColor="@color/default_text_color"
+            app:asteroidDateText="@{asteroid}"
+            app:layout_constraintStart_toStartOf="@+id/start_grid"
+            app:layout_constraintTop_toBottomOf="@+id/asteroid_name" />
+
+        <ImageView
+            android:id="@+id/hazard_level_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintEnd_toStartOf="@+id/end_grid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusIcon="@{asteroid.potentiallyHazardous}"
+            app:srcCompat="@drawable/ic_status_potentially_hazardous" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
