@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class AsteroidApplication : Application() {
-    //coroutines scope
+
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreate() {
@@ -17,15 +17,11 @@ class AsteroidApplication : Application() {
         preInit()
 
     }
-
-    //launch coroutine
     private fun preInit() = applicationScope.launch {
         setUpRecurringWork()
     }
-
-    //re-occurring work
     private fun setUpRecurringWork() {
-        //constraints for running background work
+
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -36,17 +32,14 @@ class AsteroidApplication : Application() {
                 }
             }.build()
 
-        //set up repeating requests
         val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWork>(
             1,
             TimeUnit.DAYS
         ).setConstraints(constraints)
             .build()
 
-        //schedule work as unique
         WorkManager.getInstance().enqueueUniquePeriodicWork(
             RefreshDataWork.WORK_NAME,
-            //keep existing request if one already exist
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest
         )

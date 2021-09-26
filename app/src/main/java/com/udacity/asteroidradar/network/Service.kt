@@ -28,12 +28,10 @@ interface AsteroidService {
     ):NetworkPictureOfDay
 }
 
-//Build Moshi object
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-//Network access entry point
 object Network{
     private val retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
@@ -46,10 +44,6 @@ object Network{
         retrofit.create(AsteroidService::class.java)
     }
 }
-
-
-
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun getDaysAgo (daysAgo: Int): Date {

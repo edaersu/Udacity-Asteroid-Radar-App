@@ -13,7 +13,6 @@ data class DatabaseAsteroid constructor (@PrimaryKey
                                          val relativeVelocity: Double, val distanceFromEarth: Double,
                                          val isPotentiallyHazardous: Boolean)
 
-//extension func. that converts db object to domain object
 fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
     return map {
         Asteroid(
@@ -28,9 +27,6 @@ fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
         )
     }
 }
-
-/* Db object for picture of the day*/
-
 @Entity
 data class DatabasePictureOfDay(
     @PrimaryKey
@@ -39,7 +35,6 @@ data class DatabasePictureOfDay(
     val title: String
 )
 
-//convert db object to domain object
 fun DatabasePictureOfDay.asDomainModelPicture(): PictureOfDay {
     return PictureOfDay(
         mediaType = this.mediaType,

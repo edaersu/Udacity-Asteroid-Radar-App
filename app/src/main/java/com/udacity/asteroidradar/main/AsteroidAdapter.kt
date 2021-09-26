@@ -11,21 +11,18 @@ import com.udacity.asteroidradar.databinding.ItemAsteroidBinding
 class AsteroidAdapter(val click: AsteroidClick) :
     ListAdapter<Asteroid, AsteroidAdapter.ViewHolder>(ViewHolder.ShoeDiffCallback()) {
 
-    //does actual view binding to holder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val asteroidItem = getItem(position)
-        holder.itemView.setOnClickListener { //handle click events
+        holder.itemView.setOnClickListener {
             click.onClick(asteroidItem)
         }
         holder.bind(asteroidItem)
     }
 
-    //create holder for views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    /*Holds views to be bound to recycler view*/
     class ViewHolder private constructor(val binding: ItemAsteroidBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -43,7 +40,6 @@ class AsteroidAdapter(val click: AsteroidClick) :
             }
         }
 
-        /* Monitor changes to recycler view content */
         class ShoeDiffCallback : DiffUtil.ItemCallback<Asteroid>() {
 
             override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
@@ -56,9 +52,6 @@ class AsteroidAdapter(val click: AsteroidClick) :
         }
     }
 }
-
-/*OnClickListener class*/
 class AsteroidClick(val block: (Asteroid) -> Unit) {
-    //called for onClick event on Asteroids
     fun onClick(asteroid: Asteroid) = block(asteroid)
 }

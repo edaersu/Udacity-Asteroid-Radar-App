@@ -11,7 +11,6 @@ import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    //class for filter items
     enum class SelectedOption{ SAVED, WEEK, TODAY}
 
     private val viewModel: MainViewModel by lazy {
@@ -32,13 +31,11 @@ class MainFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        //set up adapter
         val adapter = AsteroidAdapter(AsteroidClick {
             viewModel.displayAsteroidDetails(it)
         })
         binding.asteroidRecycler.adapter = adapter
 
-        //Observe navigation event
         viewModel.navigateToDetails.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 this.findNavController().navigate(
@@ -48,13 +45,6 @@ class MainFragment : Fragment() {
                 viewModel.displayAsteroidsDone()
             }
         })
-
-//        viewModel.asteroidList.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                adapter.submitList(it)
-//            }
-//        })
-
         setHasOptionsMenu(true)
 
         return binding.root

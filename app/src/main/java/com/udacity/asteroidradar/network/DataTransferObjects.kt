@@ -18,7 +18,6 @@ data class NetworkAsteroid(
     val relativeVelocity: Double, val distanceFromEarth: Double,
     val isPotentiallyHazardous: Boolean)
 
-//convert network results to domain objects
 fun List<NetworkAsteroid>.asDomainModel(): List<Asteroid> {
     return this.map {
         Asteroid(
@@ -33,9 +32,6 @@ fun List<NetworkAsteroid>.asDomainModel(): List<Asteroid> {
         )
     }
 }
-
-
-//convert data transfer objects to db objects
 fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid>{
     return this.map {
         DatabaseAsteroid(
@@ -51,14 +47,11 @@ fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid>{
     }.toTypedArray()
 }
 
-/*Picture of the day*/
 data class NetworkPictureOfDay(
     val url: String,
     @Json(name = "media_type") val mediaType:String,
     val title: String
 )
-
-//convert network results to domain objects
 fun NetworkPictureOfDay.asDomainModel(): PictureOfDay {
     return PictureOfDay(
         mediaType = this.mediaType,
@@ -67,7 +60,6 @@ fun NetworkPictureOfDay.asDomainModel(): PictureOfDay {
     )
 }
 
-//convert data transfer object to db object
 fun NetworkPictureOfDay.asDatabaseModel(): DatabasePictureOfDay {
     return DatabasePictureOfDay(
         url = this.url,

@@ -14,12 +14,11 @@ class RefreshDataWork(appContext: Context, params: WorkerParameters) :
     }
 
     override suspend fun doWork(): Result {
-        //db instance
+
         val database = getDatabase(applicationContext)
-        //repo instance
+
         val repository = AsteroidRepository(database)
 
-        //check if work executes successfully
         return try {
             repository.refreshAsteroids()
             repository.deleteOldAsteroids()

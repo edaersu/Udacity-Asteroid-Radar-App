@@ -57,7 +57,6 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     return formattedDateList
 }
 
-//get start date (today)
 fun getToday(): String {
     val calendar = Calendar.getInstance()
     val currentTime = calendar.time
@@ -65,7 +64,6 @@ fun getToday(): String {
     return dateFormat.format(currentTime)
 }
 
-//get yesterday's date
 fun getYesterday(): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, -1)
@@ -73,8 +71,6 @@ fun getYesterday(): String {
     val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
     return dateFormat.format(currentTime)
 }
-
-//get yesterday's date
 fun getPastDate(): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, -7)
@@ -83,7 +79,6 @@ fun getPastDate(): String {
     return dateFormat.format(currentTime)
 }
 
-//get end date (7 days ahead)
 fun getEndDay(): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, 7)

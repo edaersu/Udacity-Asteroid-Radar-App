@@ -18,10 +18,7 @@ import org.json.JSONObject
 
 class AsteroidRepository (private val database: AsteroidDatabase){
 
-    //Asteroid service object
     var asteroidApiService = Network.retrofitService
-
-    /* transform Asteroid database LiveData to Asteroid Live data */
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getAsteroidsToday(
         getToday()
@@ -39,15 +36,13 @@ class AsteroidRepository (private val database: AsteroidDatabase){
             it?.asDomainModel()
         }
 
-    /* Transform database picture of day to domain object*/
     val pictureOfDay: LiveData<PictureOfDay> =
         Transformations.map(database.podDao.getPictureOfDay()){
             it?.asDomainModelPicture()
         }
 
-    //Refresh asteroids
     suspend fun refreshAsteroids() {
-        withContext(Dispatchers.IO){ //force switch to IO dispatcher
+        withContext(Dispatchers.IO){
             val jsonResult = asteroidApiService.getAsteroids(getToday(), getEndDay(), API_KEY)
             val asteroids = parseAsteroidsJsonResult(JSONObject(jsonResult))
             val networkAsteroidList = asteroids.map {
@@ -65,15 +60,12 @@ class AsteroidRepository (private val database: AsteroidDatabase){
             database.asteroidDao.insertAll(*networkAsteroidList.asDatabaseModel())
         }
     }
-
-    //delete old asteroid data
     suspend fun deleteOldAsteroids() {
         withContext(Dispatchers.IO) {
             database.asteroidDao.deletePreviousAsteroids(getYesterday(), getPastDate())
         }
     }
 
-    //refresh POD
     suspend fun refreshPictureOfDay() {
         withContext(Dispatchers.IO) {
             val pod = asteroidApiService.getPictureOfDay(API_KEY)
