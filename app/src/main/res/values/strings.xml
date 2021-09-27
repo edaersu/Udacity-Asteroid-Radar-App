@@ -24,4 +24,6 @@
     <string name="nasa_picture_of_the_day" translatable="false">Nasa\'s picture of the day</string>
     <string name="picture_of_day_desc" translatable="false">This shows the image of the day as provided by NASA servers</string>
     <string name="asteroid_hazard_level_image" translatable="false">Asteroid hazard level image</string>
-    <string name="help_button" translatable="false">Help button</string></resources>
+    <string name="help_button" translatable="false">Help button</string>
+    <string name="hazard_level_icon_text">Hazard Level Image</string>
+</resources>
